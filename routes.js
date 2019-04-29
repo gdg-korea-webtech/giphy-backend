@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const { getRandomNumber } = require('./utils')
 const data = require('./data.json')
 const pagingUnit = 10
 
@@ -28,6 +29,22 @@ router.get('/gif/all', (req, res) => {
     .status(200)
     .send({
       data: data.slice(startIndex, endIndex),
+    })
+})
+
+// GET RANDOM 50 GIF IMAGES
+router.get('/gif/random50', (req, res) => {
+  const minIndex = 0
+  const maxIndex = 2999
+  const randomFiftyIndice = Array
+    .from(Array(50).keys())
+    .map(() => getRandomNumber(minIndex, maxIndex))
+
+  res
+    .status(200)
+    .send({
+      data: data
+        .filter((_, index) => randomFiftyIndice.includes(index)),
     })
 })
 
