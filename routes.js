@@ -3,7 +3,7 @@ const router = express.Router()
 const data = require('./data.json')
 const pagingUnit = 10
 
-// Get all gifs
+// GET ALL GIF IMAGES WITH PAGING
 router.get('/gif/all', (req, res) => {
   const { page } = req.query
 
@@ -13,18 +13,21 @@ router.get('/gif/all', (req, res) => {
       .send({
         message: 'Page query parameter should be given.',
       })
+  } else if (page < 1) {
+    res
+      .status(400)
+      .send({
+        message: 'Page query parameter should be bigger than 0.',
+      })
   }
 
-  const dataToReturn = data
-    // .filter((gif, index) => {
-    //   // pagingUnit * page
-    //   // index === 
-    // });
+  const startIndex = page - 1
+  const endIndex = page * pagingUnit
 
   res
     .status(200)
     .send({
-      data: dataToReturn,
+      data: data.slice(startIndex, endIndex),
     })
 })
 
