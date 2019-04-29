@@ -11,13 +11,13 @@ router.get('/gif/all', (req, res) => {
     res
       .status(400)
       .send({
-        message: 'page query parameter should be given.',
+        message: 'Query parameter(page) should be given.',
       })
   } else if (page < 1) {
     res
       .status(400)
       .send({
-        message: 'page query parameter should be bigger than 0.',
+        message: 'Query parameter(page) should be bigger than 0.',
       })
   }
 
@@ -31,6 +31,26 @@ router.get('/gif/all', (req, res) => {
     })
 })
 
+// SEARCH GIF IMAGES
+router.get('/gif/search', (req, res) => {
+  const { q } = req.query
+
+  if (!q) {
+    res
+      .status(400)
+      .send({
+        message: 'Query parameter(q) should be given in order to search gif images.',
+      })
+  }
+
+  res
+    .status(200)
+    .send({
+      data: data
+        .filter((gif) => gif.kind.includes(q) || q.includes(gif.kind)),
+    })
+})
+
 // GET A GIF IMAGE WITH A GIVEN ID
 router.get('/gif/:id', (req, res) => {
   const { id } = req.params
@@ -39,7 +59,7 @@ router.get('/gif/:id', (req, res) => {
     res
       .status(400)
       .send({
-        message: 'id parameter should be given.',
+        message: 'Parameter(id) should be given.',
       })
   }
 
