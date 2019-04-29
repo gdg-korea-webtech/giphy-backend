@@ -1,7 +1,7 @@
 const fs = require('fs')
 const axios = require('axios')
 
-const apiKey = 'FJ3V96H0Zez9EgXoNm4rIJmHP00FdPeZ'
+const apiKey = process.env.GIPHY_API_KEY
 
 // prepare 150 queries
 const queries = [
