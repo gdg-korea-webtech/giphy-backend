@@ -5,3 +5,5 @@ package-lock.json
 test.js
 index.html
 .env
+*.log
+.vscode
