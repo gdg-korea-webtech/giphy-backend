@@ -4,16 +4,15 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
+    "apidoc": "^0.17.7",
     "axios": "^0.18.0",
     "cors": "^2.8.5",
     "express": "^4.16.4"
   },
-  "devDependencies": {
-    "swagger-jsdoc": "^3.2.9",
-    "swagger-ui-express": "^4.0.2"
-  },
+  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generate-docs": "apidoc -e '(node_modules|public)' --input functions/ --output public/apidoc"
   },
   "author": "",
   "license": "ISC"

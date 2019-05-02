@@ -4,9 +4,48 @@ const { getRandomNumber } = require('./utils')
 const data = require('./data.json')
 const pagingUnit = 10
 
-// GET ALL GIF IMAGES WITH PAGING
+/**
+ * @api {get} /gif/all List All Gifs
+ * @apiName ListGif
+ * @apiGroup Gif
+ *
+ * @apiParam {Number} page Page for selecting certain 10 gifs
+ *
+ * @apiSuccess {Array} data An array of all returned gifs
+ *
+ * @apiSuccessExample {json} Success-Response:
+ *    HTTP/1.1 200 OK
+ *    {
+ *      "data": [
+ *        {
+ *          "kind": "hooray",
+ *          "type": "gif",
+ *          "id": "11sBLVxNs7v6WA",
+ *          "slug": "cheer-cheering-11sBLVxNs7v6WA",
+ *          "url": "https://i.giphy.com/11sBLVxNs7v6WA.gif",
+ *          "createdAt": "2015-01-29 16:30:00"
+ *        },
+ *        {
+ *          "kind": "hooray",
+ *          "type": "gif",
+ *          "id": "l4JySAWfMaY7w88sU",
+ *          "slug": "brooklynninenine-fox-brooklyn-nine-nine-l4JySAWfMaY7w88sU",
+ *          "url": "https://i.giphy.com/l4JySAWfMaY7w88sU.gif",
+ *          "createdAt": "2016-12-14 01:23:13"
+ *        },
+ *     ]
+ *   }
+ *
+ * @apiError PageNotProvided The page query parameter should be given.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 400 Bad Request
+ *     {
+ *       "message": "Query parameter(page) should be given."
+ *     }
+ */
 router.get('/gif/all', (req, res) => {
-  const { page } = req.query
+  const page = parseInt(req.query.page)
 
   if (!page) {
     res
@@ -33,6 +72,36 @@ router.get('/gif/all', (req, res) => {
 })
 
 // GET RANDOM 50 GIF IMAGES
+/**
+ * @api {get} /gif/random50 Get Random 50 Gifs
+ * @apiName GetRandom50Gif
+ * @apiGroup Gif
+ *
+ * @apiSuccess {Array} data An array of randomly returned 50 gifs
+ *
+ * @apiSuccessExample {json} Success-Response:
+ *    HTTP/1.1 200 OK
+ *    {
+ *      "data": [
+ *        {
+ *          "kind": "hooray",
+ *          "type": "gif",
+ *          "id": "11sBLVxNs7v6WA",
+ *          "slug": "cheer-cheering-11sBLVxNs7v6WA",
+ *          "url": "https://i.giphy.com/11sBLVxNs7v6WA.gif",
+ *          "createdAt": "2015-01-29 16:30:00"
+ *        },
+ *        {
+ *          "kind": "hooray",
+ *          "type": "gif",
+ *          "id": "l4JySAWfMaY7w88sU",
+ *          "slug": "brooklynninenine-fox-brooklyn-nine-nine-l4JySAWfMaY7w88sU",
+ *          "url": "https://i.giphy.com/l4JySAWfMaY7w88sU.gif",
+ *          "createdAt": "2016-12-14 01:23:13"
+ *        },
+ *     ]
+ *   }
+ */
 router.get('/gif/random50', (req, res) => {
   const minIndex = 0
   const maxIndex = 2999

@@ -6,3 +6,4 @@ test.js
 *.log
 .vscode
 .firebase
+public/apidoc

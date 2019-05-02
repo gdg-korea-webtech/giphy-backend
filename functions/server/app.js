@@ -5,8 +5,9 @@ const routes = require('./routes')
 // Server app basic configuration
 const app = express()
 
-// Use Middlewares
+// Use middlewares
 app.use(cors())
+app.use(express.static('public'))
 app.use('/api', routes)
 
 module.exports = app
