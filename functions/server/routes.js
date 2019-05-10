@@ -61,7 +61,7 @@ router.get('/gif/all', (req, res) => {
       })
   }
 
-  // 마지막 페에지: 315 페이지
+  // Last page: 315 page
   const startIndex = (page - 1) * pagingUnit
   const endIndex = startIndex + pagingUnit - 1
 
