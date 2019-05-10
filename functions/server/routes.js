@@ -45,9 +45,9 @@ const pagingUnit = 10
  *     }
  */
 router.get('/gif/all', (req, res) => {
-  const page = parseInt(req.query.page)
+  const page = Number(req.query.page)
 
-  if (!page) {
+  if (Number.isNaN(page)) {
     res
       .status(400)
       .send({
@@ -57,12 +57,13 @@ router.get('/gif/all', (req, res) => {
     res
       .status(400)
       .send({
-        message: 'Query parameter(page) should be bigger than 0.',
+        message: 'Query parameter(page) starts at 1.',
       })
   }
 
-  const startIndex = page - 1
-  const endIndex = page * pagingUnit
+  // 마지막 페에지: 315 페이지
+  const startIndex = (page - 1) * pagingUnit
+  const endIndex = startIndex + pagingUnit - 1
 
   res
     .status(200)
