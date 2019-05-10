@@ -1,7 +1,7 @@
 {
-  "name": "GDG Korea WebTech Hackathon",
+  "name": "GDG Korea WebTech 천하제일 코딩대회",
   "version": "1.0.0",
-  "description": "API Document",
-  "title": "GDG Korea WebTech",
+  "description": "Giphy Backend",
+  "title": "천하제일 코딩대회",
   "url" : "https://gdg-webtech-hackathon-backend.firebaseapp.com/api"
 }

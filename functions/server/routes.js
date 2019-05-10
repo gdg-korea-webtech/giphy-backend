@@ -32,7 +32,7 @@ const pagingUnit = 10
  *          "slug": "brooklynninenine-fox-brooklyn-nine-nine-l4JySAWfMaY7w88sU",
  *          "url": "https://i.giphy.com/l4JySAWfMaY7w88sU.gif",
  *          "createdAt": "2016-12-14 01:23:13"
- *        },
+ *        }
  *     ]
  *   }
  *
@@ -99,7 +99,7 @@ router.get('/gif/all', (req, res) => {
  *          "slug": "brooklynninenine-fox-brooklyn-nine-nine-l4JySAWfMaY7w88sU",
  *          "url": "https://i.giphy.com/l4JySAWfMaY7w88sU.gif",
  *          "createdAt": "2016-12-14 01:23:13"
- *        },
+ *        }
  *     ]
  *   }
  */
@@ -118,7 +118,39 @@ router.get('/gif/random50', (req, res) => {
     })
 })
 
-// SEARCH GIF IMAGES
+// SEARCH GIF IMAGES WITH THE GIVEN QUERY PARAMETER(q)
+/**
+ * @api {get} /gif/search Search Gifs that match the given query
+ * @apiName SearchGifs
+ * @apiGroup Gif
+ * 
+ * @apiParam {String} q Query for searching gifs
+ *
+ * @apiSuccess {Array} data An array of searched gifs
+ *
+ * @apiSuccessExample {json} Success-Response:
+ *    HTTP/1.1 200 OK
+ *    {
+ *      "data": [
+ *        {
+ *          "kind": "hooray",
+ *          "type": "gif",
+ *          "id": "11sBLVxNs7v6WA",
+ *          "slug": "cheer-cheering-11sBLVxNs7v6WA",
+ *          "url": "https://i.giphy.com/11sBLVxNs7v6WA.gif",
+ *          "createdAt": "2015-01-29 16:30:00"
+ *        },
+ *        {
+ *          "kind": "hooray",
+ *          "type": "gif",
+ *          "id": "l4JySAWfMaY7w88sU",
+ *          "slug": "brooklynninenine-fox-brooklyn-nine-nine-l4JySAWfMaY7w88sU",
+ *          "url": "https://i.giphy.com/l4JySAWfMaY7w88sU.gif",
+ *          "createdAt": "2016-12-14 01:23:13"
+ *        }
+ *     ]
+ *   }
+ */
 router.get('/gif/search', (req, res) => {
   const { q } = req.query
 
@@ -138,7 +170,29 @@ router.get('/gif/search', (req, res) => {
     })
 })
 
-// GET A GIF IMAGE WITH A GIVEN ID
+// GET A GIF IMAGE WITH THE GIVEN ID
+/**
+ * @api {get} /gif/:id Get a Gif that has the given id
+ * @apiName GetGif
+ * @apiGroup Gif
+ * 
+ * @apiParam {String} id ID for getting a gif
+ *
+ * @apiSuccess {Object} data An object of a found gif
+ *
+ * @apiSuccessExample {json} Success-Response:
+ *    HTTP/1.1 200 OK
+ *    {
+ *      "data": {
+ *        "kind": "hooray",
+ *        "type": "gif",
+ *        "id": "11sBLVxNs7v6WA",
+ *        "slug": "cheer-cheering-11sBLVxNs7v6WA",
+ *        "url": "https://i.giphy.com/11sBLVxNs7v6WA.gif",
+ *        "createdAt": "2015-01-29 16:30:00"
+ *      }
+ *   }
+ */
 router.get('/gif/:id', (req, res) => {
   const { id } = req.params
 
@@ -162,7 +216,7 @@ router.get('/gif/:id', (req, res) => {
     res
       .status(400)
       .send({
-        message: 'The gif image with a given id could not be found.',
+        message: 'The gif image with the given id could not be found.',
       })
   }
 })
