@@ -1,8 +1,11 @@
 const express = require('express')
+const path = require('path')
 const router = express.Router()
-const { getRandomNumber } = require('./utils')
-const data = require('./data.json')
+const { getRandomNumber, readFile } = require('./utils')
+
 const pagingUnit = 10
+const filePath = path.resolve(__dirname, 'data.json')
+const resolvingData = readFile(filePath)
 
 /**
  * @api {get} /gif/all List All Gifs
@@ -65,10 +68,22 @@ router.get('/gif/all', (req, res) => {
   const startIndex = (page - 1) * pagingUnit
   const endIndex = startIndex + pagingUnit - 1
 
-  res
-    .status(200)
-    .send({
-      data: data.slice(startIndex, endIndex),
+  resolvingData
+    .then((data) => {
+      return res
+        .status(200)
+        .send({
+          data: data.slice(startIndex, endIndex),
+        })
+    })
+    .catch((error) => {
+      console.error(error)
+
+      return res
+        .status(500)
+        .send({
+          message: 'An error has occurred while fetching data.',
+        })
     })
 })
 
@@ -110,11 +125,23 @@ router.get('/gif/random50', (req, res) => {
     .from(Array(50).keys())
     .map(() => getRandomNumber(minIndex, maxIndex))
 
-  res
-    .status(200)
-    .send({
-      data: data
-        .filter((_, index) => randomFiftyIndice.includes(index)),
+  resolvingData
+    .then((data) => {
+      return res
+        .status(200)
+        .send({
+          data: data
+            .filter((_, index) => randomFiftyIndice.includes(index)),
+        })
+    })
+    .catch((error) => {
+      console.error(error)
+
+      return res
+        .status(500)
+        .send({
+          message: 'An error has occurred while fetching data.',
+        })
     })
 })
 
@@ -162,11 +189,23 @@ router.get('/gif/search', (req, res) => {
       })
   }
 
-  res
-    .status(200)
-    .send({
-      data: data
-        .filter((gif) => gif.kind.includes(q) || q.includes(gif.kind)),
+  resolvingData
+    .then((data) => {
+      return res
+        .status(200)
+        .send({
+          data: data
+            .filter((gif) => gif.kind.includes(q) || q.includes(gif.kind)),
+        })
+    })
+    .catch((error) => {
+      console.error(error)
+
+      return res
+        .status(500)
+        .send({
+          message: 'An error has occurred while fetching data.',
+        })
     })
 })
 
@@ -204,21 +243,33 @@ router.get('/gif/:id', (req, res) => {
       })
   }
 
-  const foundGif = data.find((gif) => gif.id === id)
+  resolvingData
+    .then((data) => {
+      const foundGif = data.find((gif) => gif.id === id)
 
-  if (foundGif) {
-    res
-      .status(200)
-      .send({
-        data: foundGif,
-      })
-  } else {
-    res
-      .status(400)
-      .send({
-        message: 'The gif image with the given id could not be found.',
-      })
-  }
+      if (foundGif) {
+        return res
+          .status(200)
+          .send({
+            data: foundGif,
+          })
+      } else {
+        return res
+          .status(400)
+          .send({
+            message: 'The gif image with the given id could not be found.',
+          })
+      }
+    })
+    .catch((error) => {
+      console.error(error)
+
+      return res
+        .status(500)
+        .send({
+          message: 'An error has occurred while fetching data.',
+        })
+    })
 })
 
 module.exports = router

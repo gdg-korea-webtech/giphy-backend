@@ -1,0 +1,98 @@
+{
+  "config": {
+    "target": "https://gdg-webtech-hackathon-backend.firebaseapp.com/api",
+    "phases": [
+      {"duration": 60, "arrivalRate": 10}
+    ],
+    "defaults": {
+      "headers": {
+        "User-Agent": "Artillery"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "ListGif",
+      "flow": [
+        {
+          "get": {
+            "url": "/gif/all",
+            "qs": {
+              "page": 2
+            }
+          }
+        }, {
+          "get": {
+            "url": "/gif/all",
+            "qs": {
+              "page": 4
+            }
+          }
+        }, {
+          "get": {
+            "url": "/gif/all",
+            "qs": {
+              "page": 202
+            }
+          }
+        }
+      ]
+    }, {
+      "name": "GetRandom50Gif",
+      "flow": [
+        {
+          "get": {
+            "url": "/gif/random50"
+          }
+        }, {
+          "get": {
+            "url": "/gif/random50"
+          }
+        }
+      ]
+    }, {
+      "name": "SearchGifs",
+      "flow": [
+        {
+          "get": {
+            "url": "/gif/search",
+            "qs": {
+              "q": "h"
+            }
+          }
+        }, {
+          "get": {
+            "url": "/gif/search",
+            "qs": {
+              "q": "love"
+            }
+          }
+        }, {
+          "get": {
+            "url": "/gif/search",
+            "qs": {
+              "q": "happy"
+            }
+          }
+        }
+      ]
+    }, {
+      "name": "GetGif",
+      "flow": [
+        {
+          "get": {
+            "url": "/gif/l0K4pneh4n9t2tbeo"
+          }
+        }, {
+          "get": {
+            "url": "/gif/oJjghqlkb4iqs"
+          }
+        }, {
+          "get": {
+            "url": "/gif/W3LLB69I3UmqI"
+          }
+        }
+      ]
+    }
+  ]
+}

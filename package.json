@@ -10,10 +10,13 @@
     "dotenv": "^8.0.0",
     "express": "^4.16.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "artillery": "^1.6.0-28"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "generate-docs": "apidoc -e '(node_modules|public)' --input functions/ --output public/apidoc"
+    "generate-docs": "apidoc -e '(node_modules|public)' --input functions/ --output public/apidoc",
+    "fire-stress": "artillery run ./artillery/stressConfig.json"
   },
   "author": "",
   "license": "ISC"
